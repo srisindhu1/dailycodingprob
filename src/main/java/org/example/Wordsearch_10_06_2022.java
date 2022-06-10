@@ -48,6 +48,16 @@ public class Wordsearch_10_06_2022 {
         return false;
 
     }
-
-
 }
+
+/* Aravind's review : 1. It doesn't work when an input of 2D char array with more than 4 rows or columns is given.
+
+                      2. You are not printing or returning the end result and when you called find() method you should check what the result is. So, 
+                         I say incomplete code as still there are still some cases to be checked.
+                         
+                      3. Sould use relevant variable names and write comment lines.
+*/
+                      
+                      
+                      
+                      
