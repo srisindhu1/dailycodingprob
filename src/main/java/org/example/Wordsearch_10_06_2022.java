@@ -10,9 +10,11 @@ package dailycodingproblems;
 public class Wordsearch_10_06_2022 {
     static int[] x={1,0};
     static int[] y={0,1};
+    static int row=4;
+    static int col=4;
     public static void search(char[][] arr,String word){
-        for(int r=0;r<4;r++){
-            for(int c=0;c<4;c++){
+        for(int r=0;r<row;r++){
+            for(int c=0;c<col;c++){
                 boolean a=find(arr,r,c,word);
 
             }
