@@ -44,7 +44,6 @@ public class LFU_13_06_2022 {
         }
         if(vals.containsKey(key)){
             vals.put(key,value);
-            get(key);
             return;
         }
         if(vals.size()>=cap){
