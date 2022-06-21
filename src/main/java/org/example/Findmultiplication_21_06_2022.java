@@ -18,6 +18,17 @@ public class Findmultiplication_21_06_2022 {
         }
         return count;
     }
+    public static int integer1(int n,int x){
+        //approach 2
+        int[][] arr= new int[n][n];
+        int count=0;//counter to count the number of ways.
+        for(int i=1;i<=n;i++){
+            if(x%i==0 && x/i<=n){
+                count++;
+            }
+        }
+        return count;
+    }
 
     public static void main(String[] args){
         int n=6;
