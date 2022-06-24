@@ -1,63 +1,71 @@
 package dailycodingproblems;
 
-//asked by Microsoft.
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Stack;
+
+//Asked by Snapchat.
 //
-//Given an array of numbers, find the length of the longest increasing subsequence in the array.
-// The subsequence does not necessarily have to be contiguous.
+//Given a list of possibly overlapping intervals, return a new list of intervals
+// where all overlapping intervals have been merged.
 //
-//For example, given the array [0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15],
-// the longest increasing subsequence has length 6: it is 0, 2, 6, 9, 11, 15.
+//The input list is not necessarily ordered in any way.
+//
+//For example, given [(1, 3), (5, 8), (4, 10), (20, 25)], you should return [(1, 3), (4, 10), (20, 25)].
 //Constraints:
 //
-//1 <= nums.length <= 2500
-//-104 <= nums[i] <= 104
- // dry run link :https://docs.google.com/document/d/1oHQfZ_wbod2jBN05svAXfvoRffZvSieIHGesohH15OU/edit
-
-import java.util.Arrays;
-
-public class Longestsequence_22_06_2022 {
-    static int max;
-    public static int solution(int[] nums,int n){
-        // Recursive approach
-        // Time Complexity is exponential
-        // Space Complexity is O(1)
-        if (n == 1){
-            return 1;
+//1 <= intervals.length <= 104
+//intervals[i].length == 2
+//0 <= starti <= endi <= 104
+//dry run:https://docs.google.com/document/d/1kP0e8I-wR3yoSnpYKK8E28W_GE3sHHmNyrjzPMJd9ag/edit
+public class mergearray_24_06_2022 {
+    public static void solution(Intervals[] arr){
+        if(arr.length == 1){
+            System.out.println(arr);
         }
 
-        int res, max_ending_at_ith = 1;
-        for(int i = 1;i < n;i++){
-            res = solution(nums,i);
-            if ( nums[i - 1] < nums[ n - 1] && res + 1 > max_ending_at_ith){
-                max_ending_at_ith = res + 1;
+       int index=0;
+        Arrays.sort(arr, new Comparator<Intervals>() {
+            public int compare(Intervals i1, Intervals i2) {
+                return i1.start - i2.start;
+            }
+        });
+        for (int i=1; i<arr.length; i++)
+        {
+            // If this is not first Interval and overlaps
+            // with the previous one
+            if (arr[index].end >=  arr[i].start)
+            {
+                // Merge previous and current Intervals
+                arr[index].end = Math.max(arr[index].end, arr[i].end);
+            }
+            else {
+                index++;
+                arr[index] = arr[i];
             }
         }
 
-        if ( max < max_ending_at_ith){
-            max = max_ending_at_ith;
+        // Now arr[0..index-1] stores the merged Intervals
+        System.out.print("The Merged Intervals are: ");
+        for (int i = 0; i <= index; i++)
+        {
+            System.out.print("[" + arr[i].start + ","
+                    + arr[i].end + "]");
         }
-        return max_ending_at_ith;
-    }
 
-    public static int solution2(int[] nums,int n){
-        // DP apprach
-        // Time Complexity is O(n^2)
-        // Space Complexity is O(n)
-        int[] lis = new int[n];
-        Arrays.fill(lis,1);
-        for(int i = 1;i < n;i++){
-            for(int j = 0;j < i;j++){
-                if ( nums[i] > nums[j] && lis[i] < lis[j] + 1){
-                    lis[i] = lis[j] + 1;
-                }
-            }
+
+
         }
-        for(int i = 0; i < n;i++){
-            if(max < lis[i]){
-                max = lis[i];
-            }
+
         }
-        return max;
+
+
+
+class Intervals{
+    int start,end;
+    Intervals(int start,int end){
+        this.start = start;
+        this.end = end;
     }
 }
-
